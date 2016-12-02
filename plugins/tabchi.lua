@@ -3,10 +3,10 @@ local sgps2 = redis:scard("selfbot:supergroups")
 local users2 = redis:scard("selfbot:users")
 local pvmsgs = redis:get("pv:msgs")
 local gpmsgs = redis:get("gp:msgs")
-local sgpmsgs = redis:get("supergp:msgs")
+local skgpmsgs = redis:get("supergp:msgs")
 local links =  redis:smembers("selfbot:links")
 
-,ocal function parsed_url(link)
+local function parsed_url(link)
   local parsed_link = URL.parse(link)
   local parsed_path = URL.parse_path(parsed_link.path)
   return parsed_path[2]
@@ -139,7 +139,7 @@ function stats(cb_extra, success, result)
   for k,v in pairs(result) do
     i = i+1
   end
-  local text = "<b>Users </b>: "..users2.."\n<b>Private Messages </b>: "..pvmsgs.."\n\n<b>Groups </b>: "..gps2.."\n<b>Groups Messages </b>: "..gpmsgs.."\n\n<b>SuperGroups </b>: "..sgps2.."\n<b>SuperGroup Messages </b>: "..sgpmsgs.."\n\n<b>Total Saved Links </b>: "..#links.."\n<b>Total Saved Contacts </b>: "..i
+  local text = "<b>Users </b>: "..users2.."\n<b>Private Messages </b>: "..pvmsgs.."\n\n<b>Groups </b>: "..gps2.."\n<b>Groups Messages </b>: "..gpmsgs.."\n\n<b>SuperGroups </b>: "..skgps2.."\n<b>SuperGroup Messages </b>: "..sgpmsgs.."\n\n<b>Total Saved Links </b>: "..#links.."\n<b>Total Saved Contacts </b>: "..i
   send_large_msg(get_receiver(cb_extra.msg),text, ok_cb, false)
 end
 
